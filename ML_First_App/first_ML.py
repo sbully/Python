@@ -18,6 +18,7 @@ largeur |  1.5 |    1   |  1.5 |  1     |  0.5 |   0.5  |  1   |    1   |  1
 """
 
 import numpy as np
+from Neuronal_Network import Neuronal_Network
 
 # tableau d'entrée
 x_input = np.array(([3,1.5],
@@ -49,15 +50,28 @@ y_output = np.array(([1],
 #np.amax(NomDuTableau, AXIS) recupere la valeur max de chaque ligne du tableau
 x_enter = x_input/np.amax(x_input,axis=0)
 
-print(x_enter)
+#print(x_enter)
 
 #recuperation des données Test du tableau dont on connait toute les valeurs
 #(couleur longeur largeur) soit les 8 premiere données
 enter =np.split(x_enter,[8])[0]
 
-print(enter)
+#print(enter)
 
 #recuperation de la valeur a determiné 
 XaDeterminer = np.split(x_enter,[8])[1]
 
 
+NeuroNet = Neuronal_Network()
+
+#output = NeuroNet.forward(x_enter)
+
+
+for i in range(10000):
+    print("valeur d'entré :\n"+str(enter))
+    print("Vrai sorti :\n" +str(y_output))
+    output = NeuroNet.forward(enter)
+    print("valeur actuel :\n"+str(np.matrix.round(output,2)))
+    NeuroNet.train(enter,y_output)
+    
+    
