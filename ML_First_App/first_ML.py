@@ -57,4 +57,7 @@ enter =np.split(x_enter,[8])[0]
 
 print(enter)
 
+#recuperation de la valeur a determiné 
 XaDeterminer = np.split(x_enter,[8])[1]
+
+
