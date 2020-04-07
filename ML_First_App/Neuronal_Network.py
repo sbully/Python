@@ -76,6 +76,20 @@ class Neuronal_Network(object):
         # multiplication des valeurs des neuronnes par l erreur delta de sorti        
         self.w2 += self.z2.T.dot(self.error_output)
         
+    #fonctino d entrainement 
     def train(self,X_entrer,Y_output):
-        output = self.forward(X_entrer)
-        self.backward(X_entrer,Y_output,output)
+        for i in range(300000)
+            output = self.forward(X_entrer)
+            self.backward(X_entrer,Y_output,output)
+        
+      
+    def prediction(self, x_entrer):
+        print("donnée prédite après entrainement")
+        print("valeur d'entré : " +str(x_entrer))
+        print("valeur de sortie : "+str(self.forward(x_entrer)))
+        
+        if(self.forward(x_entrer)<0.5):
+            print("la fleur est violette")
+        else:
+            print("la fleur est rose")
+    

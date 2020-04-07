@@ -75,3 +75,4 @@ for i in range(300000):
     NeuroNet.train(enter,y_output)
     
     
+NeuroNet.prediction(XaDeterminer)
