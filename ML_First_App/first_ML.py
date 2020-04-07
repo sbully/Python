@@ -67,12 +67,8 @@ NeuroNet = Neuronal_Network()
 #output = NeuroNet.forward(x_enter)
 
 
-for i in range(300000):
-    print("valeur d'entré :\n"+str(enter))
-    print("Vrai sorti :\n" +str(y_output))
-    output = NeuroNet.forward(enter)
-    print("valeur actuel :\n"+str(np.matrix.round(output,2)))
-    NeuroNet.train(enter,y_output)
+
+NeuroNet.train(enter,y_output)
     
     
 NeuroNet.prediction(XaDeterminer)

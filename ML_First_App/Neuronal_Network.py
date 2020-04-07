@@ -6,6 +6,7 @@ Created on Mon Apr  6 12:23:13 2020
 """
 
 import numpy as np
+import os.path
 
 class Neuronal_Network(object):
     def __init__(self):
@@ -13,8 +14,16 @@ class Neuronal_Network(object):
         self.outputSize = 1
         self.hiddenSize=3
         
-        self.w1 = np.random.randn(self.inputSize,self.hiddenSize) #Matrice 2x3
-        self.w2 = np.random.randn(self.hiddenSize,self.outputSize) #Matrice 3x1
+        if(os.path.isfile("poid.npz")):
+            print("Loading file")
+            container = np.load("poid.npz")
+            self.w1 = container['w1']
+            self.w2 = container['w2']
+        else:
+            self.w1 = np.random.randn(self.inputSize,self.hiddenSize) #Matrice 2x3
+            self.w2 = np.random.randn(self.hiddenSize,self.outputSize) #Matrice 3x1
+
+        
         
     def forward(self,x):
             # produit matriciel entre la valeur des neuronnes d entré et les poids
@@ -78,9 +87,10 @@ class Neuronal_Network(object):
         
     #fonctino d entrainement 
     def train(self,X_entrer,Y_output):
-        for i in range(300000)
+        for i in range(100000):
             output = self.forward(X_entrer)
             self.backward(X_entrer,Y_output,output)
+        np.savez('poid.npz',w1=self.w1,w2=self.w2)
         
       
     def prediction(self, x_entrer):
@@ -92,4 +102,8 @@ class Neuronal_Network(object):
             print("la fleur est violette")
         else:
             print("la fleur est rose")
-    
+            
+        
+
+
+        
