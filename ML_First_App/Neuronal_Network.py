@@ -7,9 +7,12 @@ Created on Mon Apr  6 12:23:13 2020
 
 import numpy as np
 import os.path
+import hashlib
+import json
 
 class Neuronal_Network(object):
     def __init__(self):
+        self.m = hashlib.sha256()
         self.inputSize = 2
         self.outputSize = 1
         self.hiddenSize=3
@@ -90,8 +93,11 @@ class Neuronal_Network(object):
         for i in range(100000):
             output = self.forward(X_entrer)
             self.backward(X_entrer,Y_output,output)
-        np.savez('poid.npz',w1=self.w1,w2=self.w2)
-        
+            
+        self.save()    
+        # np.savez('poid.npz',w1=self.w1,w2=self.w2)
+        # loadstr = np.load('poid.npz')
+        # print(loadstr)
       
     def prediction(self, x_entrer):
         print("donnée prédite après entrainement")
@@ -102,7 +108,39 @@ class Neuronal_Network(object):
             print("la fleur est violette")
         else:
             print("la fleur est rose")
+        
+    # fonction de sauvegarde des poids
+    def save(self): 
+        # creation d'un dictionnaire
+        dic ={}
+        # ajout des matrice w1 et w2 transformer en liste par .tolist() pour 
+        # la serialisation en json
+        dic['w1']= self.w1.tolist()
+        dic['w2'] = self.w2.tolist()
+        
+        # serialisation du dictionnaire en JSON 
+        dicJson=json.dumps(dic)
+
+        # ouverture d un "stream" en ecriture (w) et ecriture du json dans
+        # le fichier        
+        with open("weight.json","w") as outfile:
+            outfile.write(dicJson)
             
+        # ouverture d un "stream" en lecture (r) et recuperation du contenu 
+        # en json
+        with open("weight.json","r") as openfile:
+            jsonObj = json.load(openfile)
+        
+        
+        # hashage en sha256 avec l objet créé dans le constructeur de la classe
+        # en utilisant la librairie hashlib 
+        self.m.update(dicJson.encode())
+        
+        # retourne le hash en code hexa
+        hexa = self.m.hexdigest()
+        
+        print(hexa)
+
         
 
 
